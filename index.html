@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)한결 - 동탄지역 1등 LG U+ 매장</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent; /* 모바일 터치 시 하이라이트 제거 */
+        }
+
+        .uplus-pink { color: #E6007E; }
+        .bg-uplus-pink { background-color: #E6007E; }
+        .border-uplus-pink { border-color: #E6007E; }
+
+        /* 배경 수정: 사람이 없으면서 젊고 화사한 추상적 이미지 적용 */
+        .hero-gradient {
+            background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.3)), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 우측 하단 퀵문의 버튼 애니메이션 */
+        @keyframes pulse-custom {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 0, 126, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(230, 0, 126, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 0, 126, 0); }
+        }
+        .btn-pulse {
+            animation: pulse-custom 2s infinite;
+        }
+
+        /* 모달 내부 스크롤 커스텀 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 모바일 메뉴 애니메이션 */
+        #mobileMenu {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md shadow-sm border-b border-pink-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-xl md:text-2xl font-black uplus-pink">(주)한결</span>
+                <span class="text-[10px] md:text-sm font-bold text-gray-400 hidden sm:block">동탄 No.1 LG U+ 공식대리점</span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex gap-8 font-medium">
+                <a href="#about" class="hover:uplus-pink transition">매장소개</a>
+                <a href="#stores" class="hover:uplus-pink transition">지점안내</a>
+                <a href="#register" class="bg-uplus-pink text-white px-5 py-2 rounded-full text-sm font-bold shadow-md hover:scale-105 transition">상담신청</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl p-1 uplus-pink">
+                <i class="fas fa-bars" id="menuIcon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Side Menu Overlay -->
+        <div id="mobileMenu" class="fixed inset-0 bg-white z-[110] transform translate-x-full md:hidden">
+            <div class="flex flex-col h-full p-6">
+                <div class="flex justify-between items-center mb-10">
+                    <span class="text-2xl font-black uplus-pink">(주)한결</span>
+                    <button onclick="toggleMobileMenu()" class="text-3xl text-gray-400">&times;</button>
+                </div>
+                <div class="flex flex-col gap-6 text-xl font-bold">
+                    <a href="#about" onclick="toggleMobileMenu()" class="border-b border-gray-100 pb-4">매장소개</a>
+                    <a href="#stores" onclick="toggleMobileMenu()" class="border-b border-gray-100 pb-4">지점안내</a>
+                    <a href="#register" onclick="toggleMobileMenu()" class="bg-uplus-pink text-white text-center py-4 rounded-xl shadow-lg mt-4">상담 신청하기</a>
+                </div>
+                <div class="mt-auto text-center text-sm text-gray-400">
+                    <p>동탄 지역 1등 LG유플러스 공식대리점</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center justify-center text-center text-gray-900 px-4 pt-16">
+        <div class="max-w-4xl py-12">
+            <h2 class="text-uplus-pink text-sm md:text-2xl font-bold mb-3 tracking-widest uppercase">Dongtan No.1 Official Store</h2>
+            <h1 class="text-3xl md:text-6xl font-black mb-6 leading-tight">
+                동탄의 통신 생활을 바꾸는<br>
+                <span class="uplus-pink">(주)한결</span>의 압도적 서비스
+            </h1>
+            <p class="text-base md:text-xl mb-10 text-gray-700 font-medium leading-relaxed">
+                동탄센트럴점 & 동탄은행사거리점<br class="hidden md:block">
+                지역 최대 혜택과 전문 컨설팅을 경험하세요.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#register" class="bg-uplus-pink hover:bg-pink-700 text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all shadow-xl">
+                    무료 혜택 조회하기
+                </a>
+                <a href="#stores" class="bg-white hover:bg-gray-50 text-uplus-pink border-2 border-uplus-pink px-8 py-4 rounded-2xl text-lg font-bold transition-all shadow-sm">
+                    매장 위치 보기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why No.1 Section -->
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 md:mb-20">
+                <h3 class="uplus-pink font-bold mb-2 text-sm tracking-widest uppercase">Why (주)한결?</h3>
+                <h2 class="text-3xl md:text-4xl font-black">동탄에서 가장 사랑받는 이유</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 md:gap-10">
+                <div class="text-center p-8 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="w-16 h-16 bg-uplus-pink/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-award text-3xl uplus-pink"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4">공식 인증 1등 매장</h4>
+                    <p class="text-gray-600 leading-relaxed">LG유플러스 본사가 인증한 우수 대리점으로 투명하고 정직한 설계를 약속합니다.</p>
+                </div>
+                <div class="text-center p-8 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="w-16 h-16 bg-uplus-pink/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-user-check text-3xl uplus-pink"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4">통신 전문가 상주</h4>
+                    <p class="text-gray-600 leading-relaxed">단순 판매를 넘어 가계 통신비 절감을 위한 맞춤형 컨설팅을 제공합니다.</p>
+                </div>
+                <div class="text-center p-8 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="w-16 h-16 bg-uplus-pink/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-heart text-3xl uplus-pink"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-4">철저한 사후 관리</h4>
+                    <p class="text-gray-600 leading-relaxed">개통 후에도 데이터 이전, 사용법 교육 등 끝까지 책임지는 한결같은 서비스를 경험하세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Section -->
+    <section id="stores" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 md:mb-20">
+                <h3 class="uplus-pink font-bold mb-2 text-sm tracking-widest uppercase">Store Info</h3>
+                <h2 class="text-3xl md:text-4xl font-black">동탄 어디서든 가까운 (주)한결</h2>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-8 md:gap-12">
+                <!-- Store 1: Dongtan Central -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border border-gray-100">
+                    <div class="aspect-video relative overflow-hidden">
+                        <!-- 이미지 반영: 동탄센트럴점 -->
+                        <img src="https://ibb.co/N0DpC6k" alt="동탄센트럴점 매장 이미지" class="w-full h-full object-cover transform hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/600x400?text=[동탄센트럴점+매장이미지]'">
+                        <div class="absolute top-4 left-4 bg-uplus-pink text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">동탄 랜드마크 지점</div>
+                    </div>
+                    <div class="p-6 md:p-10">
+                        <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6">
+                            <div>
+                                <h4 class="text-2xl font-black mb-1">LG유플러스 동탄센트럴점</h4>
+                                <p class="text-gray-500 font-medium">동탄 중심에서 만나는 프리미엄 서비스</p>
+                            </div>
+                            <div class="flex items-center text-yellow-400 font-bold bg-yellow-50 px-3 py-1 rounded-full text-sm">
+                                <i class="fas fa-star mr-1"></i>4.9
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8 text-gray-600 text-sm md:text-base">
+                            <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt mt-1 uplus-pink"></i> 경기 화성시 동탄중심상가 (상세주소)</li>
+                            <li class="flex items-start gap-3"><i class="fas fa-phone-alt mt-1 uplus-pink"></i> 031-XXX-XXXX</li>
+                            <li class="flex items-start gap-3"><i class="fas fa-clock mt-1 uplus-pink"></i> 10:00 ~ 20:30 (연중무휴)</li>
+                        </ul>
+                        <a href="https://map.kakao.com" target="_blank" class="block w-full text-center border-2 border-uplus-pink uplus-pink font-bold py-4 rounded-2xl hover:bg-uplus-pink hover:text-white transition shadow-sm">지도보기 및 길찾기</a>
+                    </div>
+                </div>
+
+                <!-- Store 2: Dongtan Eunhaeng Intersection -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover border border-gray-100">
+                    <div class="aspect-video relative overflow-hidden">
+                        <!-- 이미지 반영: 동탄은행사거리점 -->
+                        <img src="https://ibb.co/BHBQZMgc" alt="동탄은행사거리점 매장 이미지" class="w-full h-full object-cover transform hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/600x400?text=[동탄은행사거리점+매장이미지]'">
+                        <div class="absolute top-4 left-4 bg-uplus-pink text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">지역 밀착 친절 매장</div>
+                    </div>
+                    <div class="p-6 md:p-10">
+                        <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6">
+                            <div>
+                                <h4 class="text-2xl font-black mb-1">LG유플러스 동탄은행사거리점</h4>
+                                <p class="text-gray-500 font-medium">가족 통신비 맞춤 설계 전문가 그룹</p>
+                            </div>
+                            <div class="flex items-center text-yellow-400 font-bold bg-yellow-50 px-3 py-1 rounded-full text-sm">
+                                <i class="fas fa-star mr-1"></i>5.0
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8 text-gray-600 text-sm md:text-base">
+                            <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt mt-1 uplus-pink"></i> 경기 화성시 동탄은행사거리 인근 (상세주소)</li>
+                            <li class="flex items-start gap-3"><i class="fas fa-phone-alt mt-1 uplus-pink"></i> 031-YYY-YYYY</li>
+                            <li class="flex items-start gap-3"><i class="fas fa-clock mt-1 uplus-pink"></i> 10:00 ~ 20:30 (일요일 휴무 확인)</li>
+                        </ul>
+                        <a href="https://map.kakao.com" target="_blank" class="block w-full text-center border-2 border-uplus-pink uplus-pink font-bold py-4 rounded-2xl hover:bg-uplus-pink hover:text-white transition shadow-sm">지도보기 및 길찾기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="bg-uplus-pink rounded-[2.5rem] p-8 md:p-16 text-white shadow-2xl relative overflow-hidden">
+                <!-- Decoration -->
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/10 rounded-full"></div>
+                
+                <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center relative z-10">
+                    <div>
+                        <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight">상담 신청하고<br>1등 혜택 받으세요!</h2>
+                        <p class="text-pink-100 text-base md:text-lg mb-8 leading-relaxed">
+                            지금 성함과 번호만 남겨주시면,<br class="hidden md:block">
+                            전담 매니저가 연락드려 최저가 혜택을 찾아드립니다.
+                        </p>
+                        <div class="space-y-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-gift"></i></div>
+                                <span class="text-sm md:text-base">방문 상담 시 특별 사은품 증정</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-coins"></i></div>
+                                <span class="text-sm md:text-base">제휴카드 및 결합 추가 할인 안내</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 md:p-10 rounded-3xl text-gray-800 shadow-xl">
+                        <form id="consultForm" onsubmit="handleSubmit(event)">
+                            <div class="mb-5">
+                                <label class="block text-sm font-bold mb-2 text-gray-600">성함</label>
+                                <input type="text" id="name" required placeholder="예: 홍길동" class="w-full px-5 py-3.5 rounded-xl border-2 border-gray-100 focus:border-uplus-pink outline-none transition bg-gray-50">
+                            </div>
+                            <div class="mb-5">
+                                <label class="block text-sm font-bold mb-2 text-gray-600">연락처</label>
+                                <input type="tel" id="phone" required placeholder="010-0000-0000" class="w-full px-5 py-3.5 rounded-xl border-2 border-gray-100 focus:border-uplus-pink outline-none transition bg-gray-50">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-sm font-bold mb-2 text-gray-600">관심 상담 분야</label>
+                                <div class="relative">
+                                    <select id="type" class="w-full px-5 py-3.5 rounded-xl border-2 border-gray-100 focus:border-uplus-pink outline-none transition bg-gray-50 appearance-none">
+                                        <option>최신 스마트폰 변경</option>
+                                        <option>인터넷 + TV 결합 상품</option>
+                                        <option>가족 통신비 다이어트</option>
+                                        <option>기타 일반 상담</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 mb-8 bg-gray-50 p-4 rounded-xl">
+                                <input type="checkbox" id="privacy" required class="mt-1 w-5 h-5 accent-uplus-pink cursor-pointer flex-shrink-0">
+                                <label for="privacy" class="text-[11px] md:text-xs text-gray-500 leading-snug">
+                                    개인정보 수집 및 상담활용에 동의합니다. 
+                                    <button type="button" onclick="openPolicy()" class="text-uplus-pink font-bold underline ml-1">
+                                        [전문보기]
+                                    </button>
+                                </label>
+                            </div>
+                            <button type="submit" class="w-full bg-uplus-pink text-white font-bold py-5 rounded-2xl text-lg hover:bg-pink-700 active:scale-[0.98] transition-all shadow-lg">
+                                혜택 상담 신청하기
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10 text-center md:text-left">
+                <div class="mb-8 md:mb-0">
+                    <span class="text-2xl font-black text-white">(주)한결</span>
+                    <p class="mt-2 text-sm leading-relaxed">동탄 지역 1등 LG유플러스 공식 판매점<br>동탄센트럴점 | 동탄은행사거리점</p>
+                </div>
+                <div class="flex gap-6 text-2xl">
+                    <a href="#" class="w-12 h-12 flex items-center justify-center bg-gray-800 rounded-full hover:bg-uplus-pink hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center bg-gray-800 rounded-full hover:bg-uplus-pink hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center bg-gray-800 rounded-full hover:bg-uplus-pink hover:text-white transition"><i class="fas fa-comment"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-10 text-[11px] md:text-xs text-center md:text-left leading-relaxed">
+                <p>상호명: (주)한결 | 대표자: OOO | 사업자등록번호: XXX-XX-XXXXX</p>
+                <p class="mt-1">주소: 경기도 화성시 동탄중심상가 (상세 주소 필요) | 고객센터: 031-XXX-XXXX</p>
+                <p class="mt-4 text-gray-600">© 2024 Hangyeol Co., Ltd. All rights reserved. 동탄 지역 고객님들의 성원에 보답하겠습니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 우측 하단 퀵 문의하기 버튼 -->
+    <div class="fixed bottom-6 right-6 z-[90] flex flex-col items-end gap-3">
+        <div id="quickInfo" class="bg-white border border-pink-100 shadow-2xl px-4 py-2.5 rounded-2xl text-xs font-bold text-uplus-pink opacity-0 transform translate-y-4 transition-all duration-300">
+            지금 바로 문의하세요! ✨
+        </div>
+        <a href="#register" onmouseenter="showQuickInfo()" onmouseleave="hideQuickInfo()" 
+           class="w-14 h-14 md:w-16 md:h-16 bg-uplus-pink text-white rounded-full flex items-center justify-center shadow-2xl btn-pulse text-2xl hover:bg-pink-700 transition-colors">
+            <i class="fas fa-comment-dots"></i>
+        </a>
+    </div>
+
+    <!-- 1. 개인정보 수집 및 활용 안내 모달 -->
+    <div id="policyModal" class="modal">
+        <div class="bg-white rounded-[2rem] max-w-lg w-full mx-4 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+                <h3 class="text-xl font-bold">개인정보 수집 및 활용 동의</h3>
+                <button onclick="closePolicy()" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+            </div>
+            <div class="p-6 md:p-8 overflow-y-auto no-scrollbar text-sm text-gray-600 leading-relaxed">
+                <p class="mb-5 font-bold text-gray-800"> (주)한결은 고객님의 상담 신청과 관련하여 다음과 같이 개인정보를 수집 및 이용합니다.</p>
+                
+                <h4 class="font-bold text-gray-800 mb-2">1. 수집하는 개인정보 항목</h4>
+                <p class="mb-5">- 필수항목: 성명, 연락처(휴대전화번호), 상담분야</p>
+
+                <h4 class="font-bold text-gray-800 mb-2">2. 개인정보의 수집 및 이용 목적</h4>
+                <p class="mb-5">- LG유플러스 상품 가입 상담 및 안내<br>- 맞춤형 가계 통신비 절감 컨설팅<br>- 지점 방문 예약 및 사은품 안내</p>
+
+                <h4 class="font-bold text-gray-800 mb-2">3. 개인정보의 보유 및 이용 기간</h4>
+                <p class="mb-5 text-uplus-pink font-medium">- 상담 완료 및 목적 달성 후 6개월간 보관 후 파기</p>
+
+                <h4 class="font-bold text-gray-800 mb-2">4. 동의 거부권</h4>
+                <p class="mb-5">- 귀하는 동의를 거부할 권리가 있으나, 거부 시 상담 서비스 이용이 제한될 수 있습니다.</p>
+                
+                <p class="pt-5 border-t border-dashed text-[11px] text-gray-400 text-center">본 내용은 LG유플러스 대리점 표준 정책을 준수합니다.</p>
+            </div>
+            <div class="p-6 border-t bg-gray-50">
+                <button onclick="closePolicy()" class="w-full bg-gray-900 text-white font-bold py-4 rounded-2xl shadow-md">확인했습니다</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 신청 완료 성공 모달 -->
+    <div id="successModal" class="modal">
+        <div class="bg-white p-8 md:p-10 rounded-[2.5rem] max-w-xs md:max-w-sm w-full mx-4 text-center shadow-2xl">
+            <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl shadow-inner">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-gray-800">신청 완료!</h3>
+            <p class="text-gray-500 mb-8 leading-relaxed">전담 매니저가 확인 후<br>곧 연락드리겠습니다.</p>
+            <button onclick="closeSuccessModal()" class="w-full bg-uplus-pink text-white font-bold py-4 rounded-2xl shadow-lg">확인</button>
+        </div>
+    </div>
+
+    <script>
+        // 모바일 메뉴 토글
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const isOpened = menu.style.transform === 'translateX(0%)';
+            menu.style.transform = isOpened ? 'translateX(100%)' : 'translateX(0%)';
+            document.body.style.overflow = isOpened ? 'auto' : 'hidden';
+        }
+
+        // 상담 신청 제출
+        function handleSubmit(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                type: document.getElementById('type').value
+            };
+            console.log("Registered:", formData);
+            document.getElementById('successModal').style.display = 'flex';
+            document.getElementById('consultForm').reset();
+        }
+
+        // 개인정보 모달
+        function openPolicy() {
+            document.getElementById('policyModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closePolicy() {
+            document.getElementById('policyModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 성공 모달
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 퀵문의 안내문구 제어
+        function showQuickInfo() {
+            const info = document.getElementById('quickInfo');
+            info.style.opacity = '1';
+            info.style.transform = 'translateY(0)';
+        }
+        function hideQuickInfo() {
+            const info = document.getElementById('quickInfo');
+            info.style.opacity = '0';
+            info.style.transform = 'translateY(10px)';
+        }
+
+        // 외부 클릭 시 모달 닫기
+        window.onclick = function(event) {
+            if (event.target.className.includes('modal')) {
+                closePolicy();
+                closeSuccessModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
